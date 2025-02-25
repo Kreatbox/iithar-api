@@ -13,11 +13,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('firstName');
+            $table->string('lastName');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->date('birthDate');
+            $table->enum('bloodType', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+            $table->foreignId('banks_id')->constrained()->onDelete('cascade');
+            $table->boolean('gender'); 
+            $table->string('formAnswer');
+            $table->string('ssid');
+            $table->integer('points')->default(0);
+            $table->integer('role')->default(0); // 0: User, 1: مدير البنك الأول, 2: صاحب البنك الثاني
+            $table->boolean('validated')->default(false);
             $table->string('password');
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
 
